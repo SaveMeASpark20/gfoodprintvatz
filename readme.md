@@ -4,6 +4,7 @@
 
 # 1. Clone your repo
 git clone https://github.com/SaveMeASpark20/gfoodprintvatz.git
+
 cd your-project
 
 # 2. Create a new virtual environment (fresh for their system)
