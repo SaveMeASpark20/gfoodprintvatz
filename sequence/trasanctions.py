@@ -6,61 +6,74 @@ from function.clickButton import doubleClickDateArrow
 from function.util import checkIfExist
 from function.util import generate_random_number
 from function.input import inputText
+from sequence.bacchus import inputServerAndTable
 from configuration.config import config
 from datetime import datetime
 import time
 import random
 
-
-
-def dineIn(dlg, transaction_type = "DINE IN", ):
-    dine_in = config.transact
-    clickBtn(dlg, transaction_type)
-    for disc in dine_in.disc :
-        print(disc)
-        clickBtn(dlg, dine_in.prod_group)
-        clickBtn(dlg, dine_in.product)
-        clickKeypad(dlg, "check")
-        clickBtn(dlg, "DISC")
-        inputText(dlg, dine_in.manager_id)
-        clickKeypad(dlg, "check")
-        inputText(dlg, dine_in.manager_pass)
-        clickKeypad(dlg, "check")
-        clickDiscount(dlg, disc, dine_in.customer_id, dine_in.customer_name, dine_in.address, dine_in.tin, dine_in.bus_style)
-        clickBtn(dlg, "CASH")
-        clickKeypad(dlg, "exact amount")
-        if(disc == "EMPLOYEE DISC" or disc == "PROMO AMOUNT"): 
-            clickKeypad(dlg, 1)
-            clickKeypad(dlg, "check")
-            clickBtn(dlg, "YES")
-        clickBtn(dlg, "OK")
-        if(checkIfExist(dlg,'RE-ROUTE')) :
-            clickBtn(dlg, 'RE-ROUTE')
-            clickBtn(dlg, 'P O S')
+def dineIn(dlg, transaction_type = "DINE IN",  ):
+    restaurant_type = config.restaurant_type
+    if(restaurant_type == 'FINE DINING'):
+        bacchusDineIn(dlg)
+    elif(restaurant_type == 'FASTFOOD'):
+        foodDineIn(dlg)
+    else :
+        print('Neither Fine Dining or FastFood')
+    # dine_in = config.transact
+    # clickBtn(dlg, transaction_type)
+    # for disc in dine_in.disc :
+    #     print(disc)
+    #     clickBtn(dlg, dine_in.prod_group)
+    #     clickBtn(dlg, dine_in.product)
+    #     clickKeypad(dlg, "check")
+    #     clickBtn(dlg, "DISC")
+    #     inputText(dlg, dine_in.manager_id)
+    #     clickKeypad(dlg, "check")
+    #     inputText(dlg, dine_in.manager_pass)
+    #     clickKeypad(dlg, "check")
+    #     clickDiscount(dlg, disc, dine_in.customer_id, dine_in.customer_name, dine_in.address, dine_in.tin, dine_in.bus_style)
+    #     clickBtn(dlg, "CASH")
+    #     clickKeypad(dlg, "exact amount")
+    #     if(disc == "EMPLOYEE DISC" or disc == "PROMO AMOUNT"): 
+    #         clickKeypad(dlg, 1)
+    #         clickKeypad(dlg, "check")
+    #         clickBtn(dlg, "YES")
+    #     clickBtn(dlg, "OK")
+    #     if(checkIfExist(dlg,'RE-ROUTE')) :
+    #         clickBtn(dlg, 'RE-ROUTE')
+    #         clickBtn(dlg, 'P O S')
 
 def takeOut(dlg, transaction_type = "TAKE OUT", ):
-    take_out = config.transact
-    clickBtn(dlg, transaction_type)
-    for disc in take_out.disc :
-        clickBtn(dlg, take_out.prod_group)
-        clickBtn(dlg, take_out.product)
-        clickKeypad(dlg, "check")
-        clickBtn(dlg, "DISC")
-        inputText(dlg, take_out.manager_id)
-        clickKeypad(dlg, "check")
-        inputText(dlg, take_out.manager_pass)
-        clickKeypad(dlg, "check")
-        clickDiscount(dlg, disc, take_out.customer_id, take_out.customer_name, take_out.address, take_out.tin, take_out.bus_style)
-        clickBtn(dlg, "CASH")
-        clickKeypad(dlg, "exact amount")
+    restaurant_type = config.restaurant_type
+    if(restaurant_type == 'FINE DINING'):
+        bacchusTakeOut(dlg)
+    elif(restaurant_type == 'FASTFOOD'):
+        foodTakeOut(dlg)
+    else :
+        print('Neither Fine Dining or Fast Food')
+    # take_out = config.transact
+    # clickBtn(dlg, transaction_type)
+    # for disc in take_out.disc :
+    #     clickBtn(dlg, take_out.prod_group)
+    #     clickBtn(dlg, take_out.product)
+    #     clickKeypad(dlg, "check")
+    #     clickBtn(dlg, "DISC")
+    #     inputText(dlg, take_out.manager_id)
+    #     clickKeypad(dlg, "check")
+    #     inputText(dlg, take_out.manager_pass)
+    #     clickKeypad(dlg, "check")
+    #     clickDiscount(dlg, disc, take_out.customer_id, take_out.customer_name, take_out.address, take_out.tin, take_out.bus_style)
+    #     clickBtn(dlg, "CASH")
+    #     clickKeypad(dlg, "exact amount")
         
-        clickKeypad(dlg, 1)
-        clickKeypad(dlg, "check")
-        clickBtn(dlg, "YES")
-        clickBtn(dlg, "OK")
-        if(checkIfExist(dlg,'RE-ROUTE')) :
-            clickBtn(dlg, 'RE-ROUTE')
-            clickBtn(dlg, 'P O S')
+    #     clickKeypad(dlg, 1)
+    #     clickKeypad(dlg, "check")
+    #     clickBtn(dlg, "YES")
+    #     clickBtn(dlg, "OK")
+    #     if(checkIfExist(dlg,'RE-ROUTE')) :
+    #         clickBtn(dlg, 'RE-ROUTE')
+    #         clickBtn(dlg, 'P O S')
 
 
 def delivery(dlg, transaction_type ="DELIVERY") :
@@ -156,6 +169,7 @@ def free(dlg, transaction_type = "FREE" ):
             clickBtn(dlg, 'P O S')
 
 
+
 def bulk(dlg, transaction_type = 'BULK\r\nORDER'):
     clickBtn(dlg, transaction_type)
     bulk = config.bulk_transact
@@ -201,3 +215,124 @@ def bulk(dlg, transaction_type = 'BULK\r\nORDER'):
         if(checkIfExist(dlg,'RE-ROUTE')) :
             clickBtn(dlg, 'RE-ROUTE')
             clickBtn(dlg, 'P O S')
+
+def foodDineIn(dlg, transaction_type='DINE IN'):
+    dine_in = config.transact
+    clickBtn(dlg, transaction_type)
+    for disc in dine_in.disc :
+        print(disc)
+        clickBtn(dlg, dine_in.prod_group)
+        clickBtn(dlg, dine_in.product)
+        clickKeypad(dlg, "check")
+        clickBtn(dlg, "DISC")
+        inputText(dlg, dine_in.manager_id)
+        clickKeypad(dlg, "check")
+        inputText(dlg, dine_in.manager_pass)
+        clickKeypad(dlg, "check")
+        clickDiscount(dlg, disc, dine_in.customer_id, dine_in.customer_name, dine_in.address, dine_in.tin, dine_in.bus_style)
+        clickBtn(dlg, "CASH")
+        clickKeypad(dlg, "exact amount")
+        if(disc == "EMPLOYEE DISC" or disc == "PROMO AMOUNT"): 
+            clickKeypad(dlg, 1)
+            clickKeypad(dlg, "check")
+            clickBtn(dlg, "YES")
+        clickBtn(dlg, "OK")
+        if(checkIfExist(dlg,'RE-ROUTE')) :
+            clickBtn(dlg, 'RE-ROUTE')
+            clickBtn(dlg, 'P O S')
+
+def foodTakeOut(dlg, transaction_type = "TAKE OUT"):
+    take_out = config.transact
+    clickBtn(dlg, transaction_type)
+    for disc in take_out.disc :
+        clickBtn(dlg, take_out.prod_group)
+        clickBtn(dlg, take_out.product)
+        clickKeypad(dlg, "check")
+        clickBtn(dlg, "DISC")
+        inputText(dlg, take_out.manager_id)
+        clickKeypad(dlg, "check")
+        inputText(dlg, take_out.manager_pass)
+        clickKeypad(dlg, "check")
+        clickDiscount(dlg, disc, take_out.customer_id, take_out.customer_name, take_out.address, take_out.tin, take_out.bus_style)
+        clickBtn(dlg, "CASH")
+        clickKeypad(dlg, "exact amount")
+        
+        clickKeypad(dlg, 1)
+        clickKeypad(dlg, "check")
+        clickBtn(dlg, "YES")
+        clickBtn(dlg, "OK")
+        if(checkIfExist(dlg,'RE-ROUTE')) :
+            clickBtn(dlg, 'RE-ROUTE')
+            clickBtn(dlg, 'P O S')
+
+def bacchusDineIn(dlg, transaction_type='DINE IN') :
+    dine_in = config.transact
+    clickBtn(dlg, transaction_type)
+    for disc in dine_in.disc :
+        #----server and table----#
+        inputText(dlg, dine_in.cashier_id)
+        clickKeypad(dlg, 'check')
+        clickBtn(dlg, dine_in.table)
+        inputText(dlg, '1')
+        #----server and table----#
+        clickKeypad(dlg, 'check')
+        clickBtn(dlg, dine_in.prod_group)
+        clickBtn(dlg, dine_in.product)
+        clickKeypad(dlg, "check")
+        clickBtn(dlg, 'STORE\r\nORDER')
+        if(checkIfExist(dlg,'RE-ROUTE')) :
+            clickBtn(dlg, 'RE-ROUTE')
+            clickBtn(dlg, 'P O S')
+        #----recall----#
+        inputText(dlg, dine_in.cashier_id)
+        clickKeypad(dlg, 'check')
+        clickBtn(dlg, dine_in.table)
+        #----recall----#
+        clickKeypad(dlg, "check")
+        clickBtn(dlg, 'FINAL\r\nPAYMENT')
+        clickBtn(dlg, 'DISC')
+        inputText(dlg, dine_in.manager_id)
+        clickKeypad(dlg, 'check')
+        inputText(dlg, dine_in.manager_pass)
+        clickKeypad(dlg, 'check')
+        clickDiscount(dlg, disc, dine_in.customer_id, dine_in.customer_name, dine_in.address, dine_in.tin, dine_in.bus_style, 20
+                    )
+        clickBtn(dlg, 'CASH')
+        clickKeypad(dlg, 'exact amount')
+        clickBtn(dlg, "OK")
+
+def bacchusTakeOut(dlg, transaction_type='TAKE OUT') :
+    dine_in = config.transact
+    clickBtn(dlg, transaction_type)
+    for disc in dine_in.disc :
+        #----server and table----#
+        inputText(dlg, dine_in.cashier_id)
+        clickKeypad(dlg, 'check')
+        clickBtn(dlg, dine_in.table)
+        inputText(dlg, '1')
+        #----server and table----#
+        clickKeypad(dlg, 'check')
+        clickBtn(dlg, dine_in.prod_group)
+        clickBtn(dlg, dine_in.product)
+        clickKeypad(dlg, "check")
+        clickBtn(dlg, 'STORE\r\nORDER')
+        if(checkIfExist(dlg,'RE-ROUTE')) :
+            clickBtn(dlg, 'RE-ROUTE')
+            clickBtn(dlg, 'P O S')
+        #----recall----#
+        inputText(dlg, dine_in.cashier_id)
+        clickKeypad(dlg, 'check')
+        clickBtn(dlg, dine_in.table)
+        #----recall----#
+        clickKeypad(dlg, "check")
+        clickBtn(dlg, 'FINAL\r\nPAYMENT')
+        clickBtn(dlg, 'DISC')
+        inputText(dlg, dine_in.manager_id)
+        clickKeypad(dlg, 'check')
+        inputText(dlg, dine_in.manager_pass)
+        clickKeypad(dlg, 'check')
+        clickDiscount(dlg, disc, dine_in.customer_id, dine_in.customer_name, dine_in.address, dine_in.tin, dine_in.bus_style, 20
+                    )
+        clickBtn(dlg, 'CASH')
+        clickKeypad(dlg, 'exact amount')
+        clickBtn(dlg, "OK")

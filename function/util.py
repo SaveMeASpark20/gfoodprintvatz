@@ -1,5 +1,8 @@
 import random 
 import time
+import re
+
+from function.clickButton import clickKeypad
 
 def checkIfExist(dlg, name, control_type = "Button"): 
     child = dlg.child_window(title=name, control_type=control_type)
@@ -17,4 +20,14 @@ def generate_random_number(digits: int) -> int:
 
     return random.randint(lower_bound, upper_bound)
 
+def checkIfExistWithRegex(dlg, name, control_type = "Text") :
+    all_text_controls = dlg.descendants(control_type="Text")
 
+    # Filter manually with regex
+    matches = [ctrl for ctrl in all_text_controls if re.search(r"\bPAX\b", ctrl.window_text(), re.IGNORECASE)]
+
+    if matches:
+        print("✅ PAX FOUND")
+        return True
+    else:
+        return False

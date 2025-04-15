@@ -11,4 +11,3 @@ def inputText(dlg, text):
             clickBtn(dlg, "space bar")  # Adjust this based on your system
         else:
             clickBtn(dlg, char)
-            #print(f"Warning: Unsupported character '{char}' ignored.")

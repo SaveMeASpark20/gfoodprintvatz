@@ -57,7 +57,7 @@ def clickKeypad(dlg, keypadVal, retries=3, delay=2, control_type="Button"):
         try:
             button = dlg.child_window(control_type=control_type,found_index=found_index)
             
-            button.click()
+            button.click_input()
             print(f"Clicked '{keypadVal}' successfully.")
             return
         except Exception as e:
