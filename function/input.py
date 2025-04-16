@@ -1,7 +1,31 @@
 from function.clickButton import clickBtn
 from function.clickButton import clickKeypad
 
-def inputText(dlg, text):
+def inputText(dlg, text, name):
+    try:
+        title_re = f".*{name}.*"
+        textbox = dlg.child_window(control_type="Edit", title_re=title_re)  # Adjust this if needed
+        textbox.set_focus()
+        textbox.type_keys(str(text), with_spaces=True)
+        print("Successful type: ", text)
+    except Exception as e:
+        print("Failed to type text:", e)
+
+
+def inputTextByIndex(dlg, text, index):
+    try:
+        edit_boxes = dlg.descendants(control_type="Edit")
+        if index < len(edit_boxes):
+            target_box = edit_boxes[index]
+            target_box.set_focus()
+            target_box.type_keys(str(text), with_spaces=True)
+            print(f"✅ Typed into Edit[{index + 1}]: '{text}'")
+        else:
+            print(f"❌ No Edit box at index {index}")
+    except Exception as e:
+        print(f"❌ Failed to type: {e}")
+
+def inputTextOnScreen(dlg, text):
     for char in str(text):
         if char.isdigit():  # If the character is a number (0-9)
             clickKeypad(dlg, int(char))

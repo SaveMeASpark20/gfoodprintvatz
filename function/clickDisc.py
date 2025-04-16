@@ -21,22 +21,22 @@ def clickDiscount(dlg, disc_name, customer_id, customer_name, address, tin, bus_
         if key in disc_name.upper():  # Convert input to uppercase to allow case-insensitive matching
             clickBtn(dlg, button_name)
             if key == "PROMO AMOUNT":
-                inputText(dlg, promo_amount)
+                inputText(dlg, promo_amount, 'Disc Amount:')
                 clickKeypad(dlg, "check")
                 return
             if key in ("SENIOR DISC", "SOLO PARENT", "PWD DISC", "NACD", "MEDAL OF VALOR"):
                 while(checkIfExistWithRegex(dlg, 'PAX')):
                     clickKeypad(dlg, "check")
-                inputText(dlg, customer_id)
-                clickKeypad(dlg, "check")
-                inputText(dlg, customer_name)
-                clickKeypad(dlg, "check")
-                inputText(dlg, address)
-                clickKeypad(dlg, "check")
-                inputText(dlg, tin)
-                clickKeypad(dlg, "check")
-                inputText(dlg, bus_style)
+                inputText(dlg, customer_id, "ID")
+                # clickKeypad(dlg, "check")
+                inputText(dlg, customer_name, "Name")
+                # clickKeypad(dlg, "check")
+                inputText(dlg, address, "Address")
+                # clickKeypad(dlg, "check")
+                inputText(dlg, tin, "TIN")
+                # clickKeypad(dlg, "check")
+                inputText(dlg, bus_style, "Bus Style")
                 clickKeypad(dlg, "check")
                 return
             return
-    print(f"Warning: No matching discount found for '{disc_name}'")
+    print(f"Warning: No configure  discount found for '{disc_name}'")

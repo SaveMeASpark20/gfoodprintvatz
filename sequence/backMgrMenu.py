@@ -10,12 +10,12 @@ def clickBckMgrMenu(dlg, name, secondsToSleep=0) :
     if(name =='x'):
         clickDeliveryBtn(dlg, name)
     elif(name =='bacchusx') :
-        inputText(dlg, cashier_cred.cashier_id)
+        inputText(dlg, cashier_cred.cashier_id, "Server")
         clickKeypad(dlg, 'check')
         clickBtn(dlg, 'MAIN MENU')
     else:
         clickBtn(dlg, name, secondsToSleep=secondsToSleep)
-    inputText(dlg, mgrcred.manager_id)
-    clickKeypad(dlg, 'check')
-    inputText(dlg, mgrcred.manager_pass)
+    inputText(dlg, mgrcred.manager_id, "Manager")
+    # clickKeypad(dlg, 'check')
+    inputText(dlg, mgrcred.manager_pass, "Password")
     clickKeypad(dlg, 'check')

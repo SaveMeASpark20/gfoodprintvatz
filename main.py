@@ -8,14 +8,19 @@ from sequence.trasanctions import misc
 from sequence.trasanctions import free
 from sequence.backMgrMenu import clickBckMgrMenu
 from sequence.generateReport import generateReport
+from sequence.open_go import open_go
+from sequence.managerSignon import managerSignon
 from configuration.config import config
 
 def main(backend="uia"):
-    """Connects to the FASTFOOD application and clicks a button."""
+    """Connects to the FAST FOOD/FINE DINING application and clicks a button."""
+    main_dlg = open_go()
+    managerSignon(main_dlg)
+
     restaurant_type = config.restaurant_type
-    listToRun = config.run_main
     app = Application(backend=backend).connect(title_re=".*" + restaurant_type + ".*")
     dlg = app.window(title_re=".*" + restaurant_type + ".*")
+    
     # Mapping action strings to corresponding functions
     actions = {
         "CASHIER_SIGNON": cashierSignon,
