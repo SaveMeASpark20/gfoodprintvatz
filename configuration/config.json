@@ -1,5 +1,5 @@
 {
-    "sample_disc": [
+    "_comment_sample_disc": [
             "EMPLOYEE DISC",
             "PROMO AMOUNT",
             "SENIOR DISC",
@@ -9,6 +9,7 @@
             "MEDAL OF VALOR"
         ],
     "_comment": "FASTFOOD OR FINE DINING yung restaurant type",
+    "go_bat_loc": "E:\\g93v\\winvqp93\\go.bat",
     "restaurant_type": "FASTFOOD",
     "manager_cred": {
         "manager_id": "11",
@@ -51,6 +52,12 @@
         "cashier_id": "22",
         "table" : "TABLE 1",
         "disc": [
+            "EMPLOYEE DISC",
+            "PROMO AMOUNT",
+            "SENIOR DISC",
+            "SOLO PARENT",
+            "PWD DISC",
+            "NACD",
             "MEDAL OF VALOR"
         ],
         "customer_name" : "CHRISTIAN LEGUIZ",
@@ -65,7 +72,13 @@
         "manager_id": "11",
         "manager_pass": "QWERQWER1",
         "disc": [
-            "PROMO AMOUNT"
+            "EMPLOYEE DISC",
+            "PROMO AMOUNT",
+            "SENIOR DISC",
+            "SOLO PARENT",
+            "PWD DISC",
+            "NACD",
+            "MEDAL OF VALOR"
         ],
         "customer_name" : "CHRISTIAN LEGUIZ",
         "customer_id" : "12313 1313",
@@ -97,7 +110,12 @@
         "manager_pass": "QWERQWER1",
         "disc": [
             "EMPLOYEE DISC",
-            "SENIOR DISC"
+            "PROMO AMOUNT",
+            "SENIOR DISC",
+            "SOLO PARENT",
+            "PWD DISC",
+            "NACD",
+            "MEDAL OF VALOR"
         ],
         "customer_name" : "CHRISTIAN LEGUIZ",
         "customer_id" : "1231313",

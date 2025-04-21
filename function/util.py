@@ -31,3 +31,12 @@ def checkIfExistWithRegex(dlg, name, control_type = "Text") :
         return True
     else:
         return False
+
+
+def checkIfExistWithTitleRe(dlg, name, control_type = "Button"): 
+    title_re = f".*{name}.*"
+    child = dlg.child_window(title_re=title_re, control_type=control_type)
+    if(child.exists()):
+        return True
+    return False
+
